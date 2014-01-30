@@ -1,0 +1,31 @@
+<% content_for :title do %>
+    Edit Profile
+<% end %>
+
+<%= form_tag do %>
+    <%= label_tag 'Name' %>
+    <%= text_field_tag 'edit_name',@edit_name, maxlength: 100  %>
+    <%= submit_tag 'Update Name' %>
+<% end %>
+
+<br>
+
+<%= form_tag do %>
+    <%= label_tag 'Email address' %>
+    <%= email_field_tag 'edit_email',@edit_email, maxlength: 100  %>
+    <%= submit_tag 'Update Email' %>
+<% end %>
+
+<br>
+
+<%= form_tag do %>
+    <%= field_set_tag 'Change Password' do %>
+<%= label_tag 'Password' %>
+<%= password_field_tag 'edit_password',nil, maxlength: 100  %>
+<br>
+<%= label_tag 'Confirm Password' %>
+<%= password_field_tag 'edit_confirm_password',nil, maxlength: 100  %>
+<br/>
+        <%= submit_tag 'Change password' %>
+<% end %>
+<%end%>

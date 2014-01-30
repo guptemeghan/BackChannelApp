@@ -1,0 +1,14 @@
+one:
+  id: 1
+  tagname: abcd
+  post_id: 1
+
+two:
+  id: 2
+  tagname: xyz
+  post_id: 3
+
+three:
+  id: 3
+  tagname: mno
+  post_id: 4

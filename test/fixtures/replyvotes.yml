@@ -1,0 +1,14 @@
+one:
+  id: 1
+  studentid: abcd
+  replyvotes_id: 1
+
+two:
+  id: 2
+  studentid: abcd
+  replyvotes_id: 4
+
+three:
+  id: 3
+  studentid: abcd
+  replyvotes_id: 2

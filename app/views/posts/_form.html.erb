@@ -1,0 +1,34 @@
+<%= stylesheet_link_tag "posts" %>
+
+<%= form_for(@post) do |f| %>
+    <% if @post.errors.any? %>
+        <div id="error_explanation">
+
+
+          <ul>
+            <% @post.errors.full_messages.each do |msg| %>
+                <%= msg %>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+
+
+      <%= label_tag 'Title' %> <br/>
+      <%= text_field_tag 'title',@title, maxlength: 150  %> <br/>
+      <%= label_tag 'Enter Post Description' %> <br/>
+      <%= text_area_tag 'postdescription', @postdescription, rows: 3, cols: 25 %>
+      <br/>
+      <%= label_tag 'Tag your post' %> <br/>
+      <%= text_field_tag 'tag',@tag_post, placeholder: '#tag1,#tag2', maxlength: 100  %>
+    </div>
+
+    <%= f.label :category %><br />
+    <%= select('post','category_id', Category.find(:all).collect{ |c| [c.categoryname, c.id]}) %>
+
+    <div class="button">
+      <%= f.submit %>
+    </div>
+<% end %>

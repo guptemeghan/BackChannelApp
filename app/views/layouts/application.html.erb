@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<%= stylesheet_link_tag "posts" %>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Back Channel App</title>
+  <br> <p class="a">  <pre class="a"> <% if !(session[:userid].to_s.nil? || session[:userid].to_s.empty?)
+
+         @user = User.find(session[:userid])
+          if @user.priority==0
+           %>       Welcome <%=@user.name%>! You are logged in as a User! <%
+          elsif @user.priority==1
+           %>       Welcome <%=@user.name%>! You are logged in as an Admin!     <%
+            else
+         %>         Welcome  <%=@user.name%>! You are logged in as a Super Admin <%
+
+
+     end
+end%>
+    </pre>
+       </p>
+  <%= stylesheet_link_tag    "application", :media => "screen" %>
+  <%= stylesheet_link_tag    "print", :media => "print" %>
+  <link rel="stylesheet" href="styles.css" type="text/css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div id="wrapper"><!-- #wrapper -->
+
+  <nav><!-- top nav -->
+    <div class="menu">
+      <ul>
+        <li><%= link_to("Home",page_home_path) %></li>
+        <li><%= link_to("Search",search_search_by_path) %></li>
+        <% if !(session[:username].nil? || session[:username].empty?) %>
+            <li><%= link_to("View Posts",new_post_url) %></li>
+        <% end %>
+        <li><%= link_to("About Us",page_contact_us_path) %></li>
+        <% if session[:username].nil? || session[:username].empty? %>
+            <li><%= link_to("Login",page_login_path) %></li>
+        <% else %>
+            <li><%= link_to("Logout",controller: "page", action: "logout" ) %></li>
+        <% end %>
+
+      </ul>
+    </div>
+  </nav><!-- end of top nav -->
+
+  <header><!-- header -->
+    <h1><a href="/page/home">Back Channel <span class="shine">App</span></a></h1>
+    <h2>Place where your question's get answered !!</h2>
+  </header><!-- end of header -->
+
+  <section id="main"><!-- #main content and sidebar area -->
+
+    <aside id="sidebar1"><!-- sidebar1 -->
+      <div class="asidebox">
+        <h3>Things To Do</h3>
+        <% if session[:username].nil? || session[:username].empty? %>
+        <li><%= link_to("Sign-Up",page_login_path) %></li>
+            <% end %>
+        <ul>
+
+
+          <% if !(session[:username].nil? || session[:username].empty?) && (session[:priority] == 1 || session[:priority] == 2) %>
+              <li><%= link_to("View Users", :controller => "admin", :action => "show_users" ) %></li>
+              <li><%= link_to("Student report",:controller => "admin" , :action => "show_report") %></li>
+              <li><%= link_to("Generalized Report",:controller => "admin" , :action => "show_latest_post") %></li>
+              <li><%= link_to 'Create Categories', :controller => "categories", :action => "new" %> </li>
+              <li><%= link_to 'Show Categories', :controller => "categories", :action => "index" %> </li>
+
+          <% end %>
+          <% if !(session[:username].nil? || session[:username].empty?) && (session[:priority] < 2) %>
+              <li><%= link_to("Edit profile",:controller => "user" , :action => "edit_profile") %></li>
+              <li><%= link_to("Delete Account",user_delete_account_path, data: { confirm: "Are you sure you want to delete this account ?" } ) %></li>
+          <% end %>
+        </ul>
+      </div>
+
+    </aside><!-- end of sidebar1 -->
+
+    <section id="content"><!-- #content -->
+
+
+      <% if flash.now[:notice] %>
+          <p class="notice" style="font: 15"><%= flash.now[:notice].html_safe %></p>
+      <% end %>
+      <% if flash.now[:error] %>
+          <p class="notice"><%= flash.now[:error].html_safe %></p>
+      <% end %>
+
+
+      <%= yield %>
+
+    </section><!-- end of #content -->
+
+
+  </section><!-- end of #main content and sidebar-->
+  <footer>
+    <section id="footer-area">
+
+      <section id="footer-outer-block">
+        <aside class="footer-segment">
+          <h4>Course</h4>
+          <ul>
+            <li><a href="http://www.csc.ncsu.edu/faculty/efg/517/f13/syllabus">Syllabus</a></li>
+            <li><a href="http://www.csc.ncsu.edu/faculty/efg/517/f13/schedule">Course Schedule</a></li>
+          </ul>
+        </aside><!-- end of #first footer segment -->
+
+        <aside class="footer-segment">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="https://wolfware.ncsu.edu/">Wolfware</a></li>
+            <li><a href="https://moodle1314-courses.wolfware.ncsu.edu/">Moodle</a></li>
+          </ul>
+        </aside><!-- end of #second footer segment -->
+
+        <aside class="footer-segment">
+          <h4>Student Board</h4>
+          <ul>
+            <li><a href="https://piazza.com/ncsu/">Piazza</a></li>
+            <li><a href="http://expertiza.ncsu.edu/">Expertiza</a></li>
+            <li><a href="https://www.webassign.net/ncsu/login.html">WebAssign</a></li>
+          </ul>
+        </aside><!-- end of #third footer segment -->
+
+        <aside class="footer-segment">
+          <h4>Contact Us</h4>
+          <p>&copy;OOLS 2013 </p>
+        </aside><!-- end of #fourth footer segment -->
+
+      </section><!-- end of footer-outer-block -->
+
+    </section><!-- end of footer-area -->
+  </footer>
+
+
+</div><!-- #wrapper -->
+<!-- Free template created by http://freehtml5templates.com -->
+</body>
+</html>
+
+
+

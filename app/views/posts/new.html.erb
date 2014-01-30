@@ -1,0 +1,58 @@
+<%= stylesheet_link_tag "posts" %>
+<h1>New post</h1>
+
+<%= render 'form' %>
+
+
+
+
+  <% if @posts.count > 0%>
+    <table border=1>
+  <tr>
+    <th>Posted by</th>
+    <th>Post Category</th>
+    <th>Post Title</th>
+    <th>Vote count</th>
+    <th></th>
+    <th></th>
+
+  </tr>
+  <% end %>
+  <% @posts.each do |post| %>
+
+      <tr>
+        <% user = User.where(:studentid => post.studentid) %>
+        <% if user.count == 0 %>
+        <td><%= "Anonymous" %></td>
+        <% else %>
+        <td><%= user[0].name %></td>
+        <%end %>
+        <% category = Category.where(:id => post.category_id) %>
+        <% if category.count > 0 %>
+            <td><%= category[0].categoryname  %></td>
+        <% else %>
+            <td>Unknown</td>
+        <% end %>
+        <td><%= link_to post.title, controller: "replies", action: "master", id: post.id %></td>
+
+        <td><%=  Postvote.where(["post_id = :pid", { pid: post.id}]).count %></td>
+        <% if post.user_id != session[:userid] %>
+        <% if Postvote.where(["post_id = :pid and studentid = :sid", { pid: post.id, sid: session[:studentid].to_s }]).count == 0 %>
+        <td><%= link_to image_tag("like.jpg", :height =>40, :border=>0, :class => 'dock-item') , :controller => "posts", :action => "voteup", id: post.id %></td>
+        <% else %>
+        <td><%= link_to image_tag("dislike.jpg", :height =>40, :border=>0, :class => 'dock-item') , :controller => "posts", :action => "votedown", id: post.id%></td>
+        <% end %>
+        <% end %>
+
+        <% if post.user_id == session[:userid] %>
+            <td><%= link_to 'Edit', edit_post_path(post) %></td>
+        <% end %>
+
+        <% if post.user_id == session[:userid] || session[:priority] == 2 || session[:priority] == 1 %>
+            <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end%>
+      </tr>
+  <% end %>
+</table>
+
+

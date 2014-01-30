@@ -1,0 +1,70 @@
+<html>
+
+List of students
+<table border="3">
+
+  <tr>
+    <td>  Student Name </td>
+    <td>  Student ID </td>
+    <td>  Post Count </td>
+    <td>  Reply Count </td>
+    <td>  Post Vote Count </td>
+    <td>  Reply Vote Count </td>
+  </tr>
+
+  <%
+     @users = User.all
+     @posts = Post.all
+     @replies = Reply.all
+     @postvotes = Postvote.all
+     @replyvotes = Replyvote.all
+
+     @users.each do  |user|
+       @post_count = 0
+       @reply_count = 0
+       @vote_count = 0
+       @replyvote_count = 0
+       @name = user.name
+       @ssid = user.studentid
+       @post_count = user.posts.count
+
+
+       userid = user.id
+       #check in post votes how many times post_id comes
+       @reply_count = Reply.where(:user_id => userid).count
+
+       @posts = user.posts
+       @posts.each do |a|
+         postid = a.id
+         #check in post votes how many times post_id comes
+         @postvotes.each do |b|
+           if(b.post_id==postid)
+             @vote_count = @vote_count + 1
+           end
+         end
+       end
+
+       userid = user.id
+       @userreplies = Reply.where(:user_id => userid)
+       @userreplies.each do |reply|
+         @replyvote_count += Replyvote.where(:replyvotes_id => reply.id).count
+       end
+  %>
+
+      <tr>
+        <td><%= link_to "#{@name}", :controller => "admin", :action => "show_student_profile", id: @name %> </td>
+
+        <td> <%=@ssid %> </td>
+        <td> <%=@post_count %> </td>
+        <td> <%=@reply_count %> </td>
+
+        <td> <%=@vote_count %> </td>
+
+        <td> <%=@replyvote_count %> </td>
+
+      </tr>
+
+  <% end %>
+
+</table>
+</html>

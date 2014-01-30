@@ -1,0 +1,42 @@
+// Place all the styles related to the Posts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+    td
+    {
+
+      text-align: center;
+    }
+
+table td th
+
+  {
+   border: 3px solid #000000;
+}
+table
+{
+  width: 700px;
+  height: 50px;
+}
+
+.button
+{
+  color:#08233e;
+  font:2.4em  sans-serif;
+  font-size:70%;
+  padding:14px;
+  background-image:url('images\submit.jpg') ;
+
+}
+
+p
+{
+  color:grey;
+  font-size: 12px;
+
+}
+.a
+{
+  color: darkblue;
+  font-weight: bold;
+  font-size: 24px;
+}

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: 1
+  categoryname: Homework1
+
+two:
+  id: 2
+  categoryname: Webassign
+
+three:
+  id: 3
+  categoryname: Others

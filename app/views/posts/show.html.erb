@@ -1,0 +1,13 @@
+<%= stylesheet_link_tag "posts" %>
+<p id="notice"><%= notice %></p>
+
+
+
+<p>
+  <b>Postdescription:</b>  <br>
+  <b><%= @post.postdescription %></b>
+</p>
+
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>

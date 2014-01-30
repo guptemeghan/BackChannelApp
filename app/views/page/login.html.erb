@@ -1,0 +1,91 @@
+<% content_for :title do %>
+    Login
+<% end %>
+
+<%= form_tag do %>
+
+    <%= field_set_tag 'Sign In' do %>
+        <table style="width: 350px;">
+          <tr>
+            <td style="text-align: left;">
+              <%= label_tag 'Username' %>
+            </td>
+            <td>
+              <%= text_field_tag 'login_username',@login_username, placeholder: 'Enter Username', maxlength: 100   %>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: left;">
+              <%= label_tag 'Password' %>
+            </td>
+            <td>
+              <%= password_field_tag 'login_password',nil, placeholder: 'Enter Password', maxlength: 100  %>
+            </td>
+          </tr>
+        </table>
+    <% end %>
+
+    <%= submit_tag 'Login' %>
+<% end %>
+
+<br/>
+
+<%= form_tag do %>
+    <%= field_set_tag 'Create Account' do %>
+        <table style="width: 350px;">  <tr>
+          <td style="text-align: left;">
+            <%= label_tag 'Name' %>
+          </td>
+          <td>
+            <%= text_field_tag 'create_name',@create_name, placeholder: 'Enter Full Name', maxlength: 100   %>
+          </td>
+        </tr>
+          <tr>
+            <td style="text-align: left;">
+              <%= label_tag 'Email address' %>
+            </td>
+            <td>
+              <%= email_field_tag 'create_email',@create_email, placeholder: 'Enter email address', maxlength: 100  %>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: left;">
+              <%= label_tag 'Student Id' %>
+            </td>
+            <td >
+              <%= text_field_tag 'create_student_id',@create_student_id, placeholder: 'Enter Student ID', maxlength: 100  %>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: left;">
+              <%= label_tag 'Username' %>
+            </td>
+            <td>
+              <%= text_field_tag 'create_username',@create_username, placeholder: 'Enter username', maxlength: 100  %>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: left;">
+              <%= label_tag 'Password' %>
+            </td>
+            <td >
+              <%= password_field_tag 'create_password',nil, placeholder: 'Enter password', maxlength: 100  %>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: left;">
+              <%= label_tag 'Confirm Password' %>
+            </td>
+            <td>
+              <%= password_field_tag 'create_confirm_password',nil, placeholder: 'Retype password', maxlength: 100  %>
+            </td>
+          </tr>
+        </table>
+
+
+    <% end %>
+    <%= submit_tag 'Create User' %>
+<% end %>
+
+
+<br/>

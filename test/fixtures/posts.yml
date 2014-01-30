@@ -1,0 +1,32 @@
+
+one:
+  id: 1
+  title: Doubt
+  postdescription: Admin functionality
+  category: Homework1
+  studentid: 200018187
+  user_id: 1
+
+two:
+  id: 2
+  title: Problem
+  postdescription: Cannot use rspec
+  category: Others
+  studentid: 200012345
+  user_id: 2
+
+three:
+  id: 3
+  title: Configuration Problem
+  postdescription: rails config problem
+  category: Homework1
+  studentid: 200018187
+  user_id: 1
+
+four:
+  id: 4
+  title: Just for fun
+  postdescription: Webassign is good
+  category: Webassign
+  studentid: 200012345
+  user_id: 2

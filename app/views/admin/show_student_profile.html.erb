@@ -1,0 +1,55 @@
+<html>
+
+<body>
+
+<%
+
+   name = params[:id]
+   arr = User.find_by_name(name)
+   id = arr.id
+   @number = 0
+   @posts.each do |post|
+
+     if(post.user_id == id)
+       @number = @number+1
+
+     end
+
+   end
+
+%>
+<table border="3">
+  <tr>
+    <td> Name </td>
+    <td> Username </td>
+  </tr>
+  <tr>
+    <td> <%=name%></td>
+    <td> <%=arr.username %></td>
+  <tr>
+</table>
+<%               i=1
+                 @posts = Post.all
+                 @posts.each do |post|
+                   if ( post.user_id == id )
+%>
+        <%
+
+        %>
+        <br> Post  <%=i%> :  <%= link_to post.title, controller: "replies", action: "master", id: post.id %> <br>
+    <%
+       i=i+1
+       end
+       end
+    %>
+
+
+</body>
+
+
+
+
+
+
+
+</html>

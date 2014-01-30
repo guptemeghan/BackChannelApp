@@ -1,0 +1,20 @@
+
+one:
+  id: 1
+  studentid: 200018187
+  name: Meghan
+  email: mgupte@ncsu.edu
+  username: meghan
+  password: meghan
+  password: meghan
+  priority: 0
+
+two:
+  id: 2
+  studentid: 200012345
+  name: Prathmesh
+  email: pkadam@ncsu.edu
+  username: pkadam
+  password: pkadam
+  password: pkadam
+  priority: 0

@@ -1,0 +1,76 @@
+<%= stylesheet_link_tag "posts" %>
+
+<h1>Search Page</h1>
+
+<%= form_tag do %>
+
+    <table style="width: 500px;">
+      <tr>
+        <td style="text-align: left;">
+          <%= radio_button_tag(:search, :username, true) %>
+          <%= label_tag(:search_username, "Username") %>
+        </td>
+        <td style="text-align: left;">
+          <%= text_field_tag 'uname',@uname %>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align: left;">
+          <%= radio_button_tag(:search, :category, @search == "category") %>
+
+          <%= label_tag(:search_category, "Category")%>
+        </td>
+        <td style="text-align: left;">
+          <%= select_tag "category", options_for_select(Category.find(:all).collect{ |c| [c.categoryname, c.id]},@category) %>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align: left;">
+          <%= radio_button_tag(:search, :content,@search == "content") %>
+          <%= label_tag(:search_content, "Content") %>
+        </td>
+        <td style="text-align: left;">
+          <%= text_area_tag 'cont',@content %>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="text-align: left;">
+          <%= radio_button_tag(:search, :tag, @search == "tag") %>
+          <%= label_tag(:search_tag, "Tag" ) %>
+        </td>
+        <td style="text-align: left;">
+          <%= text_field_tag 't',@tag%>        (Tag1,Tag2)
+        </td>
+      </tr>
+
+    </table>
+    <%= submit_tag 'Search' %>
+<%end%>
+
+<table>
+
+  <% if @user_posts.count != 0 %>
+      <tr>
+        <th>Posted by</th>
+        <th>Post Title</th>
+        <th>Vote Count</th>
+
+      </tr>
+  <% end  %>
+
+  <% @user_posts.each do |post| %>
+
+      <tr>
+        <% user = User.where(:studentid => post.studentid) %>
+        <% if user.count == 0 %>
+            <td><%= "Anonymous" %></td>
+        <% else %>
+            <td><%= user[0].name %></td>
+        <%end %>
+        <td><%= link_to post.title, controller: "replies", action: "master", id: post.id %></td>
+
+        <td><%=  Postvote.where(["post_id = :pid", { pid: post.id}]).count %></td>
+      </tr>
+  <% end %>
+</table>

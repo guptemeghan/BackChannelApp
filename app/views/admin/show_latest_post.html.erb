@@ -1,0 +1,38 @@
+<%= form_tag do %>
+
+
+    <%= label_tag 'Enter Days' %>
+    <%= number_field_tag 'days', @days, in: 1...365 %>
+    <br>
+    <%= submit_tag 'Show Report' %>
+<% end %>
+
+
+<table>
+
+
+  <% if @posts.count > 0 %>
+      <tr>
+        <th>Posted by</th>
+        <th>Post Title</th>
+        <th>Vote count</th>
+
+      </tr>
+  <% end %>
+
+
+  <% @posts.each do |post| %>
+
+
+      <tr>
+        <% user = User.where(:studentid => post.studentid) %>
+        <% if user.count == 0 %>
+            <td><%= "Anonymous" %></td>
+        <% else %>
+            <td><%= user[0].name %></td>
+        <%end %>
+        <td><%= link_to post.title, controller: "replies", action: "master", id: post.id %></td>
+        <td><%=  Postvote.where(["post_id = :pid", { pid: post.id}]).count %></td>
+      </tr>
+  <% end %>
+</table>

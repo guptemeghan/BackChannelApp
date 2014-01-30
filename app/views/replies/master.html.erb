@@ -1,0 +1,55 @@
+<%= stylesheet_link_tag "posts" %>
+
+
+<b>Post Title : </b>     </br> </br>
+<%= @post.title  %> <br/>
+
+</br> </br>
+
+<b>Post Description : </b>     </br>  </br> </br>
+<%= @post.postdescription  %> <br/>
+ </br>
+
+<% if @replies.any? %>
+    <table>
+      <tr>
+        <th>Replied By</th>
+        <th>Reply</th>
+        <th>Vote Count</th>
+      </tr>
+      <% @replies.each do |reply| %>
+          <tr>
+            <% user = User.where(:id => reply.user_id) %>
+            <% if user.count == 0 %>
+                <td><%= "Anonymous" %></td>
+            <% else %>
+                <td><%= user[0].name %></td>
+            <%end %>
+            <td><%= reply.replydescription %></td>
+            <td><%=  Replyvote.where(["replyvotes_id = :pid", { pid: reply.id}]).count %></td>
+            <% user_id = reply.user_id%>
+            <% if user_id.to_s == session[:userid].to_s %>
+            <td><%= link_to 'Edit', edit_reply_path(reply) %></td>
+            <td><%= link_to 'Destroy', reply, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% else%>
+            <% if !(session[:userid].to_s.nil? || session[:userid].to_s.empty?)   %>
+            <% if Replyvote.where(["replyvotes_id = :pid and studentid = :sid", { pid: reply.id, sid: session[:studentid].to_s }]).count == 0 %>
+                <td><%= link_to image_tag("like.jpg", :height =>40, :border=>0, :class => 'dock-item') , :controller => "replies", :action => "voteup", id: reply.id%></td>
+            <% else %>
+                <td><%= link_to image_tag("dislike.jpg", :height =>40, :border=>0, :class => 'dock-item') , :controller => "replies", :action => "votedown", id: reply.id%></td>
+            <% end %>
+                <% end %>
+            <% end %>
+          </tr>
+      <% end %>
+    </table>
+<%end%>
+<br>
+<% if !(session[:username].to_s.nil? || session[:username].to_s.empty?) %>
+<%= form_tag  do %>
+    <%= label_tag 'Enter reply' %>
+    <%= text_area_tag 'reply', nil, rows: 3, cols: 25 %>
+    <%= submit_tag 'SaveReply' %>
+<% end %>
+<% end %>
+
